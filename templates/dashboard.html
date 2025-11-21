@@ -25,9 +25,9 @@
                     <h2 class="order-title">{{ordine['nome_cliente']}}</h2>
 
                     <div class="order-info">
-                    <div>Tavolo: {{ordine['numero_tavolo']}}</div>
+                    <div>Tavolo: {{ordine['numero_tavolo'] if ordine['numero_tavolo'] is not none else 'ASPORTO'}}</div>
                     <div>{{ordine['data_ordine'][11:16]}}</div> <!-- Mostra solo l'ora -->
-                    <div>Persone: {{ordine['numero_persone']}}</div>
+                    <div>Persone: {{ordine['numero_persone'] if ordine['numero_persone'] is not none else 'ASPORTO'}}</div>
                     </div>
 
                     <div class="order-divider"></div>
@@ -52,17 +52,18 @@
         </div>
 
         <hr class="dashboard-divider" />
+
         <h2 class="completed-title">Ordini Completati</h2>
         <div class="orders-container">
             {% for ordine in ordini_completati %}  
             <div class="order-card completed">
                 <h2 class="order-title">{{ordine['nome_cliente']}}</h2>
                 <div class="order-info">
-                    <div>Tavolo: {{ordine['numero_tavolo']}}</div>
-                    <div>{{ordine['data_ordine'][11:16]}}</div>
-                    <div>Persone: {{ordine['numero_persone']}}</div>
-                </div>
-                <div class="order-divider"></div>
+                    <div>Tavolo: {{ordine['numero_tavolo'] if ordine['numero_tavolo'] is not none else 'ASPORTO'}}</div>
+                    <div>{{ordine['data_ordine'][11:16]}}</div> <!-- Mostra solo l'ora -->
+                    <div>Persone: {{ordine['numero_persone'] if ordine['numero_persone'] is not none else 'ASPORTO'}}</div>
+                    </div>
+                <div class="order-divider-completed"></div>
                 <div class="order-items-container">
                     {% for prodotto in ordine['prodotti'] %}
                     <div class="order-item">

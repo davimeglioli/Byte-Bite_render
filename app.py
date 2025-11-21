@@ -129,7 +129,7 @@ def aggiungi_ordine():
     for cat in categorie_dashboard:
         safe_emit('aggiorna_dashboard', {'categoria': cat}, room=cat)
 
-    return redirect('/cassa/')
+    return redirect('/cassa/', code=303)
 
 @app.route('/dashboard/<category>/')
 def dashboard(category):
@@ -338,6 +338,6 @@ if __name__ == '__main__':
         ip = '127.0.0.1'
     finally:
         s.close()
-    print(f'Avvio server — apri: http://{ip}:5000/')
-    socketio.run(app, host='0.0.0.0', port=5000, debug=True)
+    print(f'Avvio server — apri: http://{ip}:5001/')
+    socketio.run(app, host='0.0.0.0', port=5001, debug=True)
     

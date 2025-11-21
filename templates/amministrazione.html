@@ -55,7 +55,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12">
                         <circle cx="6" cy="6" r="6"/>
                     </svg>
-                    <span class="label-text">Valore Medio Ordine</span>
+                    <span class="label-text">Totale Carta</span>
                 </div>
                 <div class="value">0</div>
             </div>
@@ -69,52 +69,32 @@
                 </div>
                 <div class="value">0</div>
             </div>
+        </section>
 
-            <div class="recap-card">
-                <div class="label">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12">
-                        <circle cx="6" cy="6" r="6"/>
-                    </svg>
-                    <span class="label-text">Totale Carta</span>
-                </div>
-                <div class="value">0</div>
+        <section class="grafici">
+
+            <div class="grafico-card">
+                <h3>Andamento Vendite</h3>
+                <canvas id="grafico1"></canvas>
             </div>
+
+            <div class="grafico-card">
+                <h3>Grafico 2</h3>
+                <canvas id="grafico2"></canvas>
+            </div>
+
+            <div class="grafico-card">
+                <h3>Grafico 3</h3>
+                <canvas id="grafico3"></canvas>
+            </div>
+
+            <div class="grafico-card">
+                <h3>Grafico 4</h3>
+                <canvas id="grafico4"></canvas>
+            </div>
+
         </section>
 
-        <section class="grafico-card">
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12">
-                <circle cx="6" cy="6" r="6"/>
-            </svg>
-            <h3>Andamento Vendite</h3>
-            <canvas id="grafico"></canvas>
-        </section>
-
-        <script>
-            // Dati di esempio (statici)
-            const data = {
-            etichette: ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio"],
-            valori: [12, 19, 7, 15, 22]
-            };
-
-            // Creazione del grafico
-            const ctx = document.getElementById('grafico').getContext('2d');
-            new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: data.etichette,
-                datasets: [{
-                label: 'Vendite',
-                data: data.valori,
-                backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                borderColor: 'rgba(54, 162, 235, 1)',
-                borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,       // si adatta automaticamente al contenitore
-                maintainAspectRatio: false,
-            }
-            });
-        </script>
+        <script src="{{ url_for('static', filename='js/amministrazione.js') }}"></script>
     </body>
 </html>

@@ -1,6 +1,5 @@
 //bisogna disabilitare i tasti del summaty anche quando si raggiunge la quantita massima
 
-
 document.addEventListener("DOMContentLoaded", () => {
 
     // Gestione tabs categorie
@@ -133,6 +132,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 prodottoDiv.classList.add("product-selected");
                 btnPlus.disabled = prodottoCarrello.quantita >= maxDisponibile;
                 btnMinus.disabled = prodottoCarrello.quantita <= 0;
+                const riepilogoPlus  = document.querySelector(`.btn-increase[data-id="${id}"]`);
+                const riepilogoMinus = document.querySelector(`.btn-decrease[data-id="${id}"]`);
+
+                if (riepilogoPlus)  riepilogoPlus.disabled  = prodottoCarrello.quantita >= maxDisponibile;
+                if (riepilogoMinus) riepilogoMinus.disabled = prodottoCarrello.quantita <= 1;
             } else {
                 quantityElement.textContent = 0;
                 prodottoDiv.classList.remove("product-selected");
@@ -176,4 +180,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     checkboxAsporto.addEventListener("change", aggiornaVisibilitaCampi);
     aggiornaVisibilitaCampi();
+});
+
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function (event) {
+    const now = new Date().getTime();
+    if (now - lastTouchEnd <= 300) {
+        event.preventDefault();
+    }
+    lastTouchEnd = now;
+}, false);
+
+document.addEventListener('touchmove', function (event) {
+    if (event.scale !== undefined && event.scale !== 1) {
+        event.preventDefault();
+    }
+}, { passive: false });
+
+document.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("touchstart", function (e) {
+        e.preventDefault();
+        this.click();
+    }, { passive: false });
 });

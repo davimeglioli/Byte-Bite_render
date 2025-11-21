@@ -143,8 +143,7 @@ header p {
     padding: 18px;
     text-align: center;
     width: 100%;
-    min-height: 165px;
-    /* Occupano tutta l'altezza della cella della griglia */
+    min-height: 150px;
     height: 100%;
     box-sizing: border-box;
     display: flex;
@@ -343,6 +342,12 @@ form select {
     letter-spacing: .2px;
 }
 
+.item-controls button:disabled {
+    opacity: 0.4 !important;
+    cursor: not-allowed !important;
+    background-color: #cccccc !important;
+}
+
 .item button {
     font-family: "Inter", sans-serif;
     width: 30px;
@@ -487,6 +492,11 @@ html, body, * {
     margin: 12px 0;
 }
 
+.order-divider-completed {
+    border-top: 1px solid white;
+    margin: 12px 0;
+}
+
 .order-items-container {
     max-height: 220px;
     overflow-y: auto;
@@ -612,9 +622,11 @@ html, body, * {
     width: 260px;
     border-radius: 20px;
     border: 1px solid #E0E0E0;
-    margin: 10px;
+    margin: 10px 10px;
     display: flex;
     flex-direction: column;
+    min-width: 180px;
+    flex: 1;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -644,7 +656,8 @@ html, body, * {
 
 .recap{
     display: flex;
-    justify-content: flex-start;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .recap p{
@@ -687,12 +700,18 @@ body.amministrazione {
     height: auto;
 }
 
+.grafici {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
 .grafico-card {
     background: #ffffff;
     border-radius: 20px;
     border: 1px solid #E0E0E0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-    margin: 20px 10px;
     padding: 20px 30px;
     width: 400px;
     height: 400px;
@@ -700,6 +719,7 @@ body.amministrazione {
     flex-direction: column;
     align-items: center;
     overflow: hidden;
+    margin: 10px;
 }
 
 .grafico-card h3 {
@@ -792,4 +812,66 @@ html, body, * {
 
 *::-webkit-scrollbar-thumb {
     background: transparent !important;
+}
+
+@media (max-width: 768px) { /*stili per mobile*/
+
+    .menu {
+        margin-top: 20px !important;
+    }
+
+    .container {
+        flex-direction: column;
+        height: auto !important;
+        overflow: visible !important;
+        padding: 0 12px;
+    }
+
+    .menu {
+        width: 100%;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 12px;
+        height: auto !important;
+        overflow: visible !important;
+        border-radius: 16px;
+    }
+
+    .summary {
+        width: 100%;
+        margin: 0 0 10px 0;
+        padding: 20px;
+        height: auto !important;
+        overflow: visible !important;
+        border-radius: 16px;
+    }
+
+    .products {
+        grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)) !important;
+        gap: 12px;
+        padding: 12px 4px;
+    }
+
+    .product {
+        padding: 14px 10px;
+        border-radius: 16px;
+    }
+
+    header {
+        padding: 10px 12px;
+    }
+
+    header p {
+        font-size: 12px !important;
+        line-height: 1.2;
+    }
+
+    header h2 {
+        font-size: 20px;
+    }
+
+    html, body {
+        height: auto !important;
+        overflow-y: auto !important;
+    }
 }

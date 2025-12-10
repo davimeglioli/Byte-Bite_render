@@ -192,7 +192,7 @@ def aggiungi_ordine():
         safe_emit('aggiorna_dashboard', {'categoria': cat}, room=cat)
     socketio.start_background_task(ricalcola_statistiche)
 
-    return redirect('/cassa/', code=303)
+    return redirect(url_for('cassa') + f'?last_order_id={order_id}', code=303)
 
 @app.route('/dashboard/<category>/')
 @login_required
@@ -498,6 +498,42 @@ def api_statistiche():
         "categorie": categorie,
         "ore": ore,
         "top10": top10
+    })
+
+@app.route('/api/ordine/<int:ordine_id>')
+def api_ordine(ordine_id):
+    header = query_db(
+        """
+        SELECT id, nome_cliente, numero_tavolo, numero_persone, metodo_pagamento, data_ordine
+        FROM ordini
+        WHERE id = ?
+        """,
+        (ordine_id,),
+        one=True
+    )
+    if not header:
+        abort(404)
+    items_rows = query_db(
+        """
+        SELECT p.nome AS nome, op.quantita AS quantita, p.prezzo AS prezzo
+        FROM ordini_prodotti op
+        JOIN prodotti p ON p.id = op.prodotto_id
+        WHERE op.ordine_id = ?
+        """,
+        (ordine_id,)
+    )
+    items = [
+        {"nome": r["nome"], "quantita": r["quantita"], "prezzo": r["prezzo"]}
+        for r in items_rows
+    ]
+    return jsonify({
+        "id": header["id"],
+        "nome_cliente": header["nome_cliente"],
+        "numero_tavolo": header["numero_tavolo"],
+        "numero_persone": header["numero_persone"],
+        "metodo_pagamento": header["metodo_pagamento"],
+        "data_ordine": header["data_ordine"],
+        "items": items
     })
 
 @app.route('/amministrazione/')

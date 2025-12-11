@@ -956,3 +956,51 @@ body.login-page {
         overflow-y: auto !important;
     }
 }
+
+@media (max-width: 480px) {
+    header {
+        height: 56px;
+        padding: 0 12px;
+    }
+    .logo img {
+        height: 24px;
+    }
+    header h2 {
+        font-size: 18px;
+        margin-left: 12px;
+    }
+    header p {
+        display: none;
+    }
+    .login-container {
+        padding: 16px 12px 24px;
+        min-height: calc(100vh - 56px);
+    }
+    .login-card {
+        padding: 22px 16px;
+        border-radius: 16px;
+        max-width: 360px;
+    }
+    .login-title {
+        font-size: 20px;
+    }
+    .input-login {
+        font-size: 16px;
+        padding: 12px 12px;
+    }
+    .login-btn {
+        font-size: 17px;
+        padding: 12px;
+    }
+}
+
+button,
+.tab,
+.btn-submit,
+.btn-increase,
+.btn-decrease,
+.btn-remove,
+.btn-plus,
+.btn-minus {
+    touch-action: manipulation;
+}

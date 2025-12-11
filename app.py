@@ -1,4 +1,4 @@
-from flask import Flask, json, jsonify, redirect, render_template, request, session, abort
+from flask import Flask, json, jsonify, redirect, render_template, request, session, abort, url_for
 import sqlite3 as sq
 import socket
 import bcrypt
@@ -6,11 +6,13 @@ import secrets
 from flask_socketio import SocketIO, join_room
 import uuid
 from functools import wraps
+import os
 
 timers_attivi = {}
 
 app = Flask(__name__)
-app.secret_key = secrets.token_hex(32)
+app.secret_key = os.environ.get("SECRET_KEY", secrets.token_hex(32))
+app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 31536000
 
 socketio = SocketIO(
     app,
@@ -103,7 +105,8 @@ def on_join(data):
         print(f"[WS] Dashboard entrata nella stanza: {categoria}")
 
 def get_db():
-    conn = sq.connect('db.sqlite3')
+    db_path = os.environ.get("DATABASE_PATH", "db.sqlite3")
+    conn = sq.connect(db_path)
     conn.row_factory = sq.Row
     return conn
 
@@ -711,6 +714,7 @@ if __name__ == '__main__':
         ip = '127.0.0.1'
     finally:
         s.close()
-    print(f'Avvio server — apri: http://{ip}:5001/')
-    socketio.run(app, host='0.0.0.0', port=5001, debug=True)
+    port = int(os.environ.get("PORT", 5001))
+    print(f'Avvio server — apri: http://{ip}:{port}/')
+    socketio.run(app, host='0.0.0.0', port=port, debug=False)
     

@@ -1,1 +1,8 @@
-__pycache__/app.cpython-313.pyc
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+.venv/
+venv/
+db.sqlite3
+.DS_Store

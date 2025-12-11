@@ -183,23 +183,5 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 let lastTouchEnd = 0;
-document.addEventListener('touchend', function (event) {
-    const now = new Date().getTime();
-    if (now - lastTouchEnd <= 300) {
-        event.preventDefault();
-    }
-    lastTouchEnd = now;
-}, false);
-
-document.addEventListener('touchmove', function (event) {
-    if (event.scale !== undefined && event.scale !== 1) {
-        event.preventDefault();
-    }
-}, { passive: false });
-
-document.querySelectorAll("button").forEach(btn => {
-    btn.addEventListener("touchstart", function (e) {
-        e.preventDefault();
-        this.click();
-    }, { passive: false });
-});
+document.removeEventListener('touchend', function(){});
+document.removeEventListener('touchmove', function(){});

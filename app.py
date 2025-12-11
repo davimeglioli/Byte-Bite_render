@@ -16,6 +16,7 @@ app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 31536000
 
 socketio = SocketIO(
     app,
+    async_mode=os.environ.get("ASYNC_MODE", "gevent"),
     cors_allowed_origins="*",
     ping_timeout=60,      # quanto tempo il server aspetta un PONG
     ping_interval=25,     # ogni quanto manda un PING
